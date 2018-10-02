@@ -1,12 +1,12 @@
-
-function Book(title, author, numPages, pubData) {
-  this.title = new title;
-  this.author = new author;
-  this.title = new title;
-  this.title = new title;
+function Book(title, author, numPages, pubDate)
+{
+  this.title = title;
+  this.author = author;
+  this.numPages = numPages;
+  this.pubDate = pubDate;
 };
 
-Book.prototype.editBook = function(title)
+Book.prototype.editBook = function(oBook)
 {
 
 };
