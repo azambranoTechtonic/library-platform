@@ -94,30 +94,60 @@ Library.prototype.checkBookByAuthor = function(author)
 Library.prototype.getBookByTitle = function(title)
 {
   // Select books from bookShelf Completely or Partially matching title
+  var mBooks = [];
+  var lcTitle;
+  var lcBsTitle;
 
-  return Books; //Books array
+  for (var i = 0;i < this.bookShelf.length;i++) {
+
+    lcTitle = title.toLowerCase();
+    lcBsTitle = this.bookShelf[i].title.toLowerCase();
+
+    if (lcBsTitle.includes(lcTitle)) {
+      mBooks.push(this.bookShelf[i]);
+    }
+  }
+  return mBooks; //Books array
 };
 
-Library.prototype.getBookByAuthor = function(authorName)
+Library.prototype.getBookByAuthor = function(author)
 {
   // Select books from bookShelf Completely or Partially matching Author name
+  var mBooks = [];
+  var lcAuthor;
+  var lcBsAuthor;
 
-  return Books; //Books array
+  for (var i = 0;i < this.bookShelf.length;i++) {
+
+    lcAuthor = author.toLowerCase();
+    lcBsAuthor = this.bookShelf[i].author.toLowerCase();
+
+    if (lcBsAuthor.includes(lcAuthor)) {
+      mBooks.push(this.bookShelf[i]);
+    }
+  }
+  return mBooks; //Books array
 };
 
 Library.prototype.getAllBooks = function()
 {
   // Select All books from bookShelf
 
-  return bookShelf; //Books array
+  return this.bookShelf; //Books array
 
 };
 
 Library.prototype.addBooks = function(books)
 {
   // Adds books from Books array into bookShelf
+  var nBooks = 0;
 
-  return Number; //Number of Books added to bookShelf
+  for (var i = 0;i < books.length;i++) {
+    this.bookShelf.push(books[i]);
+    nBooks = nBooks + 1;
+  }
+
+  return nBooks; //Number of Books added to bookShelf
 };
 
 Library.prototype.getAuthors = function()
