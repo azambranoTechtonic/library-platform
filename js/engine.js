@@ -52,8 +52,9 @@ Library.prototype.removeBookByAuthor = function(author)
 Library.prototype.getRandomBook = function()
 {
   // Select a random book from bookShelf
+  var iRandomBook = Math.floor(Math.random() * this.bookShelf.length) - 1;
 
-  return oBook; //Single Book Obj
+  return this.bookShelf[iRandomBook]; //random Single Book Obj
 };
 
 Library.prototype.checkBookByTitle = function(title)
@@ -123,14 +124,39 @@ Library.prototype.getAuthors = function()
 {
   // Select distinct authorName from bookShelf
 
-  return Authors; //Authors array from bookShelf
+  var authors = [];
+  var sAdd = true;
+
+  for (var i = 0;i < this.bookShelf.length;i++) {
+
+    if (authors.length === 0) {
+      authors.push(this.bookShelf[i].author);
+    } else {
+      sAdd = true;
+      for (var j = 0;j < authors.length;j++) {
+       if (this.bookShelf[i].author === authors[j]) {
+        sAdd = false;
+       }
+      }
+      if (sAdd) {
+        authors.push(this.bookShelf[i].author);
+      }
+    }
+  }
+
+  return authors; //Authors array from bookShelf
 };
 
 Library.prototype.getRandomAuthorName = function()
 {
   // Select random authorName from bookShelf
 
-  return Author; //random authorName string from bookShelf
+  var rAuthors = this.getAuthors();
+
+  var iRandomAuthor = Math.floor(Math.random() * rAuthors.length);
+
+  return rAuthors[iRandomAuthor]; //random authorName string from bookShelf
+
 };
 
 Library.prototype.storeBookShelf = function()
