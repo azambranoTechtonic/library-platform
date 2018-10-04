@@ -1,24 +1,14 @@
-function Library()
-{
-  this.bookShelf = new Array();
-};
 
-var sLibrary = (function(){
-    function sLibrary() {
-        //Write your usual code here
-        this.bookShelf = new Array();
+(function() {//SINGLETON
+  var instance;
+  Library = function() {
+    this.bookShelf = new Array();
+    if (instance) { //if a instance of library already exists this will point the newly made library to the Singleton instance
+      return instance;
     }
-    var instance;
-    return {
-        getInstance: function(){
-            if (null == instance) {
-                instance = new Singleton();
-                instance.constructor = null; // Note how the constructor is hidden to prevent instantiation
-            }
-            return instance; //return the singleton instance
-        }
-   };
-})();
+    instance = this; //if a instance of library does not yet exist this will get and set the instance name for the new library
+  }
+})()
 
 Library.prototype.addBook = function(book)
 {
@@ -231,10 +221,8 @@ Library.prototype.restoreBookShelf = function()
 
 
 document.addEventListener("DOMContentLoaded", function(e){
-  window.gLibrary = new Library();
 
-  window.gDenverLib = new Library();
-  window.gBoulderLib = new Library();
+  window.gLibrary = new Library();
 
   window.book1 = new Book("it", "sk", 200, "jan 1");
   window.book2 = new Book("the shining", "sk", 200, "dec 1");
