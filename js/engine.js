@@ -3,6 +3,23 @@ function Library()
   this.bookShelf = new Array();
 };
 
+var sLibrary = (function(){
+    function sLibrary() {
+        //Write your usual code here
+        this.bookShelf = new Array();
+    }
+    var instance;
+    return {
+        getInstance: function(){
+            if (null == instance) {
+                instance = new Singleton();
+                instance.constructor = null; // Note how the constructor is hidden to prevent instantiation
+            }
+            return instance; //return the singleton instance
+        }
+   };
+})();
+
 Library.prototype.addBook = function(book)
 {
   // Add a book to bookShelf
@@ -199,7 +216,7 @@ Library.prototype.storeBookShelf = function()
   //save it with local storage
   window.localStorage.setItem('bookShelf', dehydratedBookShelf);
 
-  return Author; //random authorName string from bookShelf
+  return true; //random authorName string from bookShelf
 };
 
 Library.prototype.restoreBookShelf = function()
@@ -208,9 +225,9 @@ Library.prototype.restoreBookShelf = function()
 
   //get 'bookShelf' and rehydrate it  (convert it back JSON)
   var rehydratedBookShelf = JSON.parse(window.localStorage.getItem('bookShelf'));
-  this.bookShelf = rehydratedBookShelf;
 
-};
+  return rehydratedBookShelf;
+}
 
 
 document.addEventListener("DOMContentLoaded", function(e){

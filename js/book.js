@@ -8,11 +8,10 @@ function Book(title, author, numPages, pubDate)
 
 Book.prototype.editBook = function(oBook)
 {
-
   this.title = oBook.title;
   this.author = oBook.author;
   this.numPages = oBook.numPages;
   this.pubDate = oBook.pubDate;
 
-  return true;
+  return this;
 };
