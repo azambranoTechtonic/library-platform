@@ -136,6 +136,33 @@ Library.prototype.getBookByAuthor = function(author)
   return mBooks; //Books array
 };
 
+Library.prototype.getBookByNumPages = function(numPages)
+{
+  // Select books from bookShelf Completely matching numPages
+  var mBooks = [];
+
+  for (var i = 0;i < this.bookShelf.length;i++) {
+
+    if (this.bookShelf[i].numPages === numPages) {
+      mBooks.push(this.bookShelf[i]);
+    }
+  }
+  return mBooks; //Books array
+};
+
+Library.prototype.getBookByPubDate = function(pubDate)
+{
+  // Select books from bookShelf Completely matching numPages
+  var mBooks = [];
+
+  for (var i = 0;i < this.bookShelf.length;i++) {
+    if (this.bookShelf[i].pubDate.includes(pubDate)) {
+      mBooks.push(this.bookShelf[i]);
+    }
+  }
+  return mBooks; //Books array
+};
+
 Library.prototype.getAllBooks = function()
 {
   // Select All books from bookShelf
@@ -144,14 +171,56 @@ Library.prototype.getAllBooks = function()
 
 };
 
+Library.prototype.searchByAnyProperty = function(oBook)
+{
+  var sTitle = [];
+  var sAuthor = [];
+  var sNumPages = [];
+  var sPubDate = [];
+  var sResult = [];
+
+
+  if (oBook.hasOwnProperty('title')) {
+    sTitle = this.getBookByTitle(oBook.title);
+  }
+
+  if (oBook.hasOwnProperty('author')) {
+    sAuthor = this.getBookByAuthor(oBook.author);
+  }
+
+  if (oBook.hasOwnProperty('numPages')) {
+    sNumPages = this.getBookByNumPages(oBook.numPages);
+  }
+
+  if (oBook.hasOwnProperty('pubDate')) {
+    sPubDate = this.getBookByPubDate(oBook.pubDate);
+  }
+
+  sResult = sTitle.concat(sAuthor, sNumPages, sPubDate);
+
+
+  var unique_array = []
+  for(let i = 0;i < sResult.length; i++){
+    if(unique_array.indexOf(sResult[i]) == -1){
+        unique_array.push(sResult[i])
+    }
+  }
+
+  return unique_array;
+};
+
 Library.prototype.addBooks = function(books)
 {
   // Adds books from Books array into bookShelf
   var nBooks = 0;
 
   for (var i = 0;i < books.length;i++) {
-    this.bookShelf.push(books[i]);
-    nBooks = nBooks + 1;
+
+    if (this.addBook(books[i])) {
+     //this.bookShelf.push(books[i]);
+     nBooks = nBooks + 1;
+    }
+
   }
 
   return nBooks; //Number of Books added to bookShelf
@@ -232,5 +301,6 @@ document.addEventListener("DOMContentLoaded", function(e){
   window.book6 = new Book("War and Peace", "Leo Tolstoy", 1225, "1867");
   window.book7 = new Book("The DaVinci Code", "Dan Brown", 296, "jan 1");
   window.book8 = new Book("Harry Potter", "J. K. Rowling", 198, "dec 1");
+  window.book9 = new Book("The Mark of Athena", "Rick Riordan", 342, "dec 1");
 
 });
